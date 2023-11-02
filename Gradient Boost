@@ -1,0 +1,29 @@
+# Импорт необходимых библиотек
+import xgboost as xgb
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error 
+
+# Грузить датасэт
+data = pd.read_csv("C:\Users\Legion\Desktop\data.csv")
+
+# Загрузка и предварительная обработка данных
+# Предположим, что вы уже загрузили данные и выполнели предварительную обработку
+
+# Разделение данных на обучающий и тестовый наборы
+X = your_data.drop('цена', axis=1)  # Признаки
+y = your_data['цена']  # Целевая переменная
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Обучение модели градиентного бустинга с использованием XGBoost
+xg_reg = xgb.XGBRegressor(objective ='reg:squarederror', colsample_bytree = 0.3, learning_rate = 0.1,
+                max_depth = 5, alpha = 10, n_estimators = 100)
+
+xg_reg.fit(X_train, y_train)
+
+# Предсказание на тестовом наборе данных
+y_pred = xg_reg.predict(X_test)
+
+# Оценка производительности модели
+rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+print("RMSE:", rmse)
